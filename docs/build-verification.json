@@ -1,0 +1,15 @@
+{
+  "base_sha256": "65cc0daae9f72ffc30d9ba9f6996c3c5c143be8ca15f69b3c79fab50fa711be6",
+  "v2_sha256": "59bd258352723eaf8dc2746fb56b08f08350c6ce52b7b2231ea6defa4ead370b",
+  "v1_data_script_sha256": "483b0ba72c5d4baf48bd5f05a163f76aefe5a0146f60a5a656684456f77128c6",
+  "v1_style_sha256": "e580fb2011fe4231f6904906334e709272a9ffcc56dbfd4cf0609ff5ea689103",
+  "v1_data_byte_identical": true,
+  "v1_css_byte_identical": true,
+  "original_model_orbits": 71,
+  "original_manifold_branches": 96,
+  "patch_count": 3,
+  "default_view": "map",
+  "integration": "Additional objects in original v1 scene; original renderer and camera retained",
+  "new_physics": "Analytic two-body Mars examples and ideal Sun-centered transfer arcs",
+  "display": "Multiscale, not a single physical distance scale; not a live ephemeris"
+}

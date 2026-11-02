@@ -1,0 +1,153 @@
+{
+  "viewports": [
+    {
+      "width": 1365,
+      "height": 960,
+      "default_map": true,
+      "preserved_v1_state": true,
+      "earth_lower_left_mars_upper_right": true,
+      "no_js_errors": true,
+      "no_horizontal_overflow": true,
+      "mars_state": {
+        "active": true,
+        "selected": null,
+        "fullWeb": true,
+        "marsOrbitCount": 19,
+        "transferArcCount": 2,
+        "originalOrbitCount": 71,
+        "originalManifoldCount": 96,
+        "enabled": [
+          "mars-low",
+          "mars-high",
+          "mars-sync",
+          "mars-moons",
+          "mars-local-transfer",
+          "mars-transfer"
+        ],
+        "camera": [
+          1.05,
+          0.6500000000000006,
+          9
+        ],
+        "target": [
+          1.05,
+          0.65,
+          0
+        ],
+        "sceneChildren": 41,
+        "marsCenter": [
+          3.65,
+          2.7,
+          0
+        ],
+        "earthPosition": [
+          0,
+          0,
+          0
+        ],
+        "v1DataVersion": "2026-11-01T22:23:59.348875+00:00"
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "default_map": true,
+      "preserved_v1_state": true,
+      "earth_lower_left_mars_upper_right": true,
+      "no_js_errors": true,
+      "no_horizontal_overflow": true,
+      "mars_state": {
+        "active": true,
+        "selected": null,
+        "fullWeb": true,
+        "marsOrbitCount": 19,
+        "transferArcCount": 2,
+        "originalOrbitCount": 71,
+        "originalManifoldCount": 96,
+        "enabled": [
+          "mars-low",
+          "mars-high",
+          "mars-sync",
+          "mars-moons",
+          "mars-local-transfer",
+          "mars-transfer"
+        ],
+        "camera": [
+          1.05,
+          0.6500000000000006,
+          9
+        ],
+        "target": [
+          1.05,
+          0.65,
+          0
+        ],
+        "sceneChildren": 41,
+        "marsCenter": [
+          3.65,
+          2.7,
+          0
+        ],
+        "earthPosition": [
+          0,
+          0,
+          0
+        ],
+        "v1DataVersion": "2026-11-01T22:23:59.348875+00:00"
+      }
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "default_map": true,
+      "preserved_v1_state": true,
+      "earth_lower_left_mars_upper_right": true,
+      "no_js_errors": true,
+      "no_horizontal_overflow": true,
+      "mars_state": {
+        "active": true,
+        "selected": null,
+        "fullWeb": true,
+        "marsOrbitCount": 19,
+        "transferArcCount": 2,
+        "originalOrbitCount": 71,
+        "originalManifoldCount": 96,
+        "enabled": [
+          "mars-low",
+          "mars-high",
+          "mars-sync",
+          "mars-moons",
+          "mars-local-transfer",
+          "mars-transfer"
+        ],
+        "camera": [
+          1.05,
+          0.6500000000000006,
+          9
+        ],
+        "target": [
+          1.05,
+          0.65,
+          0
+        ],
+        "sceneChildren": 41,
+        "marsCenter": [
+          3.65,
+          2.7,
+          0
+        ],
+        "earthPosition": [
+          0,
+          0,
+          0
+        ],
+        "v1DataVersion": "2026-11-01T22:23:59.348875+00:00"
+      }
+    }
+  ],
+  "test_method": "Load the self-contained built HTML directly into Chromium.",
+  "numerical": {
+    "relativeEnergyError": 6.400703207978235e-15,
+    "hohmannDays": 258.8657588951053
+  }
+}
