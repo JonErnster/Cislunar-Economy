@@ -1,0 +1,28 @@
+{
+  "counts": {
+    "total": 1969,
+    "outbound": 978,
+    "inbound": 991,
+    "oneRevolution": 443
+  },
+  "boundaryProblems": 3660,
+  "lambertCandidates": 4776,
+  "outsideEnvelope": 2807,
+  "validationFailures": 0,
+  "failureExamples": [],
+  "maxResiduals": {
+    "positionKm": 0.32992658741381076,
+    "velocityKmS": 5.933227636110356e-08,
+    "relativeEnergy": 1.9986277321884368e-09,
+    "relativeAngularMomentum": 1.484778004536249e-09
+  },
+  "checks": [
+    "quarter-circle known solution",
+    "one-revolution circular known solution",
+    "independent DOP853 closure for every retained arc",
+    "energy and angular momentum",
+    "actual angular revolution count"
+  ],
+  "dataSha256": "298ffe3581e5ec938f6227fb53982339417bf0668c8c70df473478c9aad7874f",
+  "bytes": 7374117
+}

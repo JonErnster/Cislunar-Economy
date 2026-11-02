@@ -1,0 +1,37 @@
+{
+  "visualComparisonScope": "Original Map drawing; navigation controls excluded because V3 adds a tab.",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 960,
+      "defaultMap": true,
+      "mapStateRestored": true,
+      "marsAndOriginalViews": true,
+      "noJavaScriptErrors": true,
+      "noHorizontalOverflow": true,
+      "filtersAndInspector": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "defaultMap": true,
+      "mapStateRestored": true,
+      "marsAndOriginalViews": true,
+      "noJavaScriptErrors": true,
+      "noHorizontalOverflow": true,
+      "filtersAndInspector": true
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "defaultMap": true,
+      "mapStateRestored": true,
+      "marsAndOriginalViews": true,
+      "noJavaScriptErrors": true,
+      "noHorizontalOverflow": true,
+      "filtersAndInspector": true
+    }
+  ],
+  "model": "Sun-only Lambert with approximate JPL ephemerides",
+  "originalMapCanvasPixelIdentical": true
+}

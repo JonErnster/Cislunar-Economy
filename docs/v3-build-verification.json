@@ -1,0 +1,17 @@
+{
+  "version": "3.0.0",
+  "baseV2Sha256": "59bd258352723eaf8dc2746fb56b08f08350c6ce52b7b2231ea6defa4ead370b",
+  "v3Sha256": "1bc0aea5c894dcfff98cb212ad016c4a91b3cbfa15e708809cb8ed3860e093fc",
+  "v1OrbitalDataByteIdentical": true,
+  "v1StylesheetByteIdentical": true,
+  "originalOrbits": 71,
+  "originalManifoldBranches": 96,
+  "defaultView": "map",
+  "transferCounts": {
+    "total": 1969,
+    "outbound": 978,
+    "inbound": 991,
+    "oneRevolution": 443
+  },
+  "bytes": 11215254
+}
