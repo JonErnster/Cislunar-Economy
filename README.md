@@ -1,71 +1,74 @@
-# Cislunar Atlas v2 — Original v1 + Mars
+# Cislunar Economy
 
-**The original atlas has been recovered and extended, not rebuilt.** The complete working v2 application is now [`index.html`](index.html). An untouched copy of the original application is retained at [`vendor/v1/original.html`](vendor/v1/original.html).
+[![Launch the Interactive Atlas](https://img.shields.io/badge/Launch-Interactive%20Atlas-00aaff?style=for-the-badge)](https://jonernster.github.io/Cislunar-Economy/)
 
-## Get the application
+**[▶ LAUNCH THE INTERACTIVE ATLAS](https://jonernster.github.io/Cislunar-Economy/)**
 
-**[Download the complete v2 HTML](https://github.com/JonErnster/Cislunar-Economy/raw/refs/heads/main/index.html)** and open the downloaded file in a desktop browser. The renderer, textures, orbit data, and explanations are embedded; no build or external libraries are needed to use it.
+Explore the orbital geometry and potential transport infrastructure of the Earth–Moon–Mars system. Rotate the scene, animate spacecraft markers, switch orbital layers on and off, and inspect the equations behind the paths.
 
-[View the publication commit](https://github.com/JonErnster/Cislunar-Economy/commit/d5a104d0f7bb01548fd1dfbef6da0d2590505ad9) · [View the successful build and tests](https://github.com/JonErnster/Cislunar-Economy/actions/runs/41525843877) · [Browse the Mars extension source](src/mars-extension.js)
+## V1 — Cislunar
 
-![Original v1 cislunar orbital web and Mars in the same scene](docs/v2-mars-1365.png)
+V1 maps the Earth–Moon system: Earth, the Moon, all five Lagrange points, halo and Lyapunov orbit families, near-rectilinear halo and distant retrograde examples, repeating cyclers, and approach and departure manifolds.
 
-## What changed
+Its catalog contains **71 orbit records and 96 manifold branches**. The Map, 3D, and Moon views explore the system from different perspectives. Volume overlays show the wider cislunar environment, while the Apollo, Glaser, and O’Neill layers illustrate proposed logistics corridors and their economic roles.
 
-**Map remains the default.** The original Map, 3D, and Moon camera modes, original orbital catalog, textures, colors, and original stylesheet are retained. The Wide button is now **Mars**.
+![The cislunar orbital atlas in Map view](docs/v2-map-1365.png)
 
-Clicking Mars smoothly pulls back the original camera to show the original cislunar orbital web toward the lower-left and the Mars orbital neighborhood toward the upper-right, together in one continuous scene. It does not switch to a replacement supply-chain diagram or load a second visualization in an iframe.
+## V2 — Mars
 
-A new **Mars · Orbital Extension** category adds low Mars orbits, elliptical staging examples, an areosynchronous reference, Phobos and Deimos orbital paths, transfers to moon orbital distances, and ideal Earth–Mars transfer arcs. Layer names open the existing inspector with descriptions and equations. Returning to Map restores the original cislunar layer selections and framing.
+V2 adds the Mars orbital neighborhood to the cislunar atlas. The **Mars** button pulls the camera back to show the Earth–Moon orbital web toward the lower-left and Mars toward the upper-right, together in one continuous scene.
 
-The Mars overview initially includes the full numerical v1 cislunar web. Its checkbox can instead retain only the user's previously selected v1 layers.
+The Mars layers include **19 Mars-centered two-body reference orbits** and **two ideal Earth–Mars transfer arcs**. Explore low Mars orbits, elliptical staging orbits, an areosynchronous reference, the orbital paths of Phobos and Deimos, and transfers to their orbital distances. Select a layer to read its purpose and equations.
 
-## What is preserved
+![The Earth–Moon and Mars orbital neighborhoods in one view](docs/v2-mars-1365.png)
 
-The recovered standalone v1 contains **71 orbit records and 96 manifold branches**. Its embedded orbital-data script and original stylesheet are preserved byte-for-byte in v2. The same scene, renderer, camera, controls, and timeline draw the added Mars objects.
+## Explore
 
-The builder verifies the complete original's SHA-256 before applying three narrowly targeted edits. It also removes the original host's injected Cloudflare challenge script, which is hosting infrastructure rather than atlas code.
+| View | Description |
+| --- | --- |
+| **Map** | The default Earth–Moon overview. |
+| **3D** | An angled, rotatable view of the cislunar orbit families. |
+| **Moon** | A closer view of the lunar neighborhood. |
+| **Mars** | A combined overview of the cislunar and Martian orbital systems. |
 
-- Original v1 SHA-256: `65cc0daae9f72ffc30d9ba9f6996c3c5c143be8ca15f69b3c79fab50fa711be6`.
-- Published v2 SHA-256: `59bd258352723eaf8dc2746fb56b08f08350c6ce52b7b2231ea6defa4ead370b`.
-- [Build and byte-preservation report](docs/build-verification.json).
-- [Browser and numerical test results](docs/browser-verification.json).
-- [Recovery provenance](v1-recovery-report.json).
+Use the sidebar to choose layers and the timeline to pause or adjust the animation. Returning to Map restores the cislunar framing and selections. On a phone, open **Layers** to access the sidebar.
 
-## Physics and display limits
+## The models
 
-The original Earth–Moon CR3BP trajectories remain unchanged. The addition contains **19 analytic Mars-centered two-body reference orbits** and **two ideal Sun-centered Hohmann half-ellipse arcs**. These are calculated model examples, not live spacecraft positions or date-specific mission trajectories.
+The Earth–Moon orbit families use the circular restricted three-body model, alongside clearly identified reference orbits and conceptual logistics routes. The Mars examples use analytic two-body mechanics; the interplanetary arcs are idealized Sun-centered Hohmann transfers.
 
-The combined view is deliberately **multiscale**: each local orbital neighborhood is enlarged and the Earth–Mars separation is compressed. It is not a single globally scaled Earth–Moon–Sun–Mars integration. The transfer arcs refer to departure and arrival at different epochs. Intersections do not establish rendezvous, and the moon-distance reference ellipses do not solve capture, landing, target phasing, or mission optimization. The Mars globe is a procedural illustration rather than a geographic map.
+The combined Mars overview is **multiscale**: local orbital neighborhoods are enlarged and interplanetary separation is compressed for readability. These are model examples, not live spacecraft positions or date-specific flight plans. Crossing paths do not by themselves establish a rendezvous. The commercial corridors are concepts, not uniquely solved mission trajectories.
 
-Primary references used for the Mars extension include [JPL astrodynamic constants](https://ssd.jpl.nasa.gov/astro_par.html), [mean satellite elements](https://ssd.jpl.nasa.gov/sats/elem/), [satellite physical parameters](https://ssd.jpl.nasa.gov/sats/phys_par/), and [planetary physical parameters](https://ssd.jpl.nasa.gov/planets/phys_par.html). Original v1 provenance and model explanations remain embedded in the application.
+## Sources
 
-## Verification
+The application includes orbit provenance and model explanations. Primary references include the [NASA/JPL periodic-orbit catalog](https://ssd-api.jpl.nasa.gov/doc/periodic_orbits.html), [JPL astrodynamic constants](https://ssd.jpl.nasa.gov/astro_par.html), [satellite orbital elements](https://ssd.jpl.nasa.gov/sats/elem/), and [planetary physical parameters](https://ssd.jpl.nasa.gov/planets/phys_par.html).
 
-GitHub Actions successfully built the app and ran Chromium checks at 1365×960, 390×844, and 320×740. These checked the default Map view, original orbit counts, Mars activation, Earth-lower-left/Mars-upper-right orientation, inspector equations, restoration of exposed v1 state, original 3D/Moon views, JavaScript errors, and horizontal overflow. The tested Kepler states conserve two-body specific energy to a maximum relative error of approximately `6.4e-15`.
+<details>
+<summary>Download, development, and hosting</summary>
 
-These are Chromium checks, not a claim of testing every browser or device. The app retains v1's renderer fallback.
+### Download
 
-## Website hosting status
+[Download the complete atlas HTML](https://github.com/JonErnster/Cislunar-Economy/raw/refs/heads/main/index.html) and open it in a desktop browser. The renderer, textures, orbit data, and explanations are embedded in the file.
 
-**The application and source are published in this repository. GitHub Pages has not been deployed.** The automated attempt to enable Pages was denied with `Resource not accessible by integration`. A separate external preview attempt also returned HTTP 403; no unverified preview is advertised as live.
+### Development
 
-The owner can enable branch-based hosting under [Settings → Pages](https://github.com/JonErnster/Cislunar-Economy/settings/pages): choose **Deploy from a branch → main → / (root)**. The root already contains the complete app and `.nojekyll`. After GitHub confirms successful deployment, use the website address GitHub displays. The earlier ChatGPT-hosted v1 has not been modified.
-
-## Reproduce the build
+The Mars source is in [`src/mars-extension.js`](src/mars-extension.js). The V1 application is in [`vendor/v1/original.html`](vendor/v1/original.html).
 
 ```sh
 python tools/build_v2.py
-```
-
-To repeat the browser checks:
-
-```sh
 python -m pip install playwright
 python -m playwright install --with-deps chromium
 python tests/check_browser.py
 ```
 
-`src/mars-extension.js` is readable JavaScript. `tools/build_v2.py` performs the checksum-guarded insertion into the recovered original bundle. `vendor/v1/original.html` must not be edited. The generated `index.html` is the standalone deliverable.
+[Build checks](docs/build-verification.json) and [browser checks](docs/browser-verification.json) document the numerical and interface tests.
 
-This is an independent educational visualization, not an official NASA, JPL, Blue Origin, or U.S. government product and not a flight-navigation tool.
+### GitHub Pages
+
+The launch button opens `https://jonernster.github.io/Cislunar-Economy/`.
+
+To activate the website, open [Settings → Pages](https://github.com/JonErnster/Cislunar-Economy/settings/pages), select **Deploy from a branch**, choose **main** and **/ (root)**, and save. The button's destination becomes available after GitHub Pages is enabled and deployment succeeds.
+
+</details>
+
+This is an independent educational visualization, not an official NASA, JPL, Blue Origin, or U.S. government product or a flight-navigation tool.
