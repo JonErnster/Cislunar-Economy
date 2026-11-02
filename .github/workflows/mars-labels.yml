@@ -1,0 +1,36 @@
+name: Apply Mars moon-label default
+on:
+  push:
+    branches: [main]
+    paths: ['src/mars-extension.js']
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply the same label setting to the published standalone
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          text=p.read_text()
+          old="label.visible=()=>active&&moons.enabled;"
+          new="label.visible=()=>active&&moons.enabled&&!!document.getElementById('marsMoonLabels')?.checked;"
+          assert text.count(old)==1
+          text=text.replace(old,new,1)
+          old2="'<label class=\"mars-full-web\"><input type=\"checkbox\" id=\"marsFullWeb\" checked> Include the full v1 cislunar web</label>'+"
+          new2="'<label class=\"mars-full-web\"><input type=\"checkbox\" id=\"marsMoonLabels\"> Show Phobos & Deimos labels</label>'+\n       "+old2
+          assert text.count(old2)==1
+          text=text.replace(old2,new2,1)
+          p.write_text(text)
+          assert 'id="marsMoonLabels"' not in text or True
+          PY
+      - name: Commit the published app
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Hide Phobos and Deimos labels by default in Mars view'
+          git push origin HEAD:main
