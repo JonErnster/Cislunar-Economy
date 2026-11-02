@@ -4120,7 +4120,7 @@ const MarsV2 = (() => {
     addSolarTransfers();
     Da('LMO',display([MARS_RADIUS+400,0,0]).toArray(),{offset:[-45,-15],visible:()=>active&&low.enabled&&(!Ii()||(ct.right-ct.left)/ct.zoom<2),onClick:()=>inspect(low.id)});
     const gale=gc('#f1c7ae',.0045,true);gale.position.copy(new C(CENTER[0]+.035,CENTER[1]-.048,.035));root.add(gale);
-    Da('Gale Crater',gale.position.toArray(),{offset:[55,12],visible:()=>active&&(!Ii()||(ct.right-ct.left)/ct.zoom<2),getPosition:()=>gale.position,onClick:()=>{
+    Da('Gale Crater',gale.position.toArray(),{offset:[55,12],visible:()=>false,getPosition:()=>gale.position,onClick:()=>{
       inspect('mars-low');Z('inspectTitle').textContent='Gale Crater · surface reference';
       Z('inspectDescription').textContent='A labeled surface destination inspired by the supplied logistics diagram. Its placement on this illustrative globe is schematic, not a landing trajectory or surveyed position.';
     }});
