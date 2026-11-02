@@ -4109,7 +4109,7 @@ const MarsV2 = (() => {
     for(const [name,record,radius]of [['Phobos',ph,.011],['Deimos',de,.009]]){
       const object=body(name,display(record.state(0).position),'#b7ada0',radius,null);object.userData.orbit=record;
       // These labels follow the actual animated markers rather than static destinations.
-      const label=Lu[Lu.length-1];label.visible=()=>active&&moons.enabled;
+      const label=Lu[Lu.length-1];label.visible=()=>active&&moons.enabled&&!!document.getElementById('marsMoonLabels')?.checked;
     }
     const transfers=addLayer('mars-local-transfer','Transfers to moon distances','#9ec5ca',
       'Six bound Kepler reference ellipses link low-Mars periapsis radius with the Phobos or Deimos orbital radius. Their useful transfer portion is half an orbit.',
@@ -4178,7 +4178,8 @@ const MarsV2 = (() => {
       '<div class="layer-row" data-mars-layer="'+layer.id+'" style="--color:'+layer.color+'">'+
       '<label title="Toggle '+layer.name+'"><input type="checkbox" checked data-mars-toggle="'+layer.id+'" aria-label="Show '+layer.name+'"></label>'+
       '<button class="layer-name" data-mars-inspect="'+layer.id+'">'+layer.name+'</button><span class="layer-number">'+(layer.orbits.length||2)+'</span></div>').join('')+
-      '<label class="mars-full-web"><input type="checkbox" id="marsFullWeb" checked> Include the full v1 cislunar web</label>'+
+      '<label class="mars-full-web"><input type="checkbox" id="marsMoonLabels"> Show Phobos & Deimos labels</label>'+
+       '<label class="mars-full-web"><input type="checkbox" id="marsFullWeb" checked> Include the full v1 cislunar web</label>'+
       '<p class="mars-sidebar-note">The original orbit data is untouched. Mars is an additional group in the same scene.</p>';
     Z('layerList').append(details);
     details.querySelectorAll('[data-mars-toggle]').forEach(cb=>cb.addEventListener('change',()=>{if(!active)enter();setLayer(cb.dataset.marsToggle,cb.checked);}));
