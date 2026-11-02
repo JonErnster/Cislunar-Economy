@@ -1,0 +1,46 @@
+name: Export original v1 source
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/export-v1-source.yml'
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package the original app and retrieve its original source archive
+        shell: bash
+        run: |
+          mkdir -p original-export
+          cp vendor/v1/original.html original-export/original.html
+          cp v1-recovery-report.json original-export/v1-recovery-report.json
+          python3 - <<'PY'
+          import urllib.request, pathlib, zipfile, io, json
+          url = 'https://jon-cislunar-atlas.jmernster7.chatgpt.site/cislunar-source.zip'
+          report = {'url': url, 'recovered': False}
+          try:
+              with urllib.request.urlopen(url, timeout=40) as response:
+                  data = response.read(50000001)
+              if len(data) > 50000000 or not zipfile.is_zipfile(io.BytesIO(data)):
+                  raise ValueError('Response is not an acceptable source ZIP.')
+              z = zipfile.ZipFile(io.BytesIO(data))
+              names = z.namelist()
+              if any(n.startswith('/') or '..' in pathlib.PurePosixPath(n).parts for n in names):
+                  raise ValueError('Unsafe ZIP paths.')
+              pathlib.Path('original-export/cislunar-source.zip').write_bytes(data)
+              report.update(recovered=True, bytes=len(data), members=names)
+          except Exception as exc:
+              report['error'] = type(exc).__name__ + ': ' + str(exc)[:300]
+          pathlib.Path('original-export/source-report.json').write_text(json.dumps(report, indent=2))
+          print(json.dumps(report, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: original-v1-source
+          path: original-export/
+          retention-days: 7
+          if-no-files-found: error
