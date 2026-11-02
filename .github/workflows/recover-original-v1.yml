@@ -1,0 +1,59 @@
+name: Recover original v1
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/recover-original-v1.yml'
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve and validate the original standalone application
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import urllib.request, urllib.error, pathlib, hashlib, json, re, sys
+          base = 'https://jon-cislunar-atlas.jmernster7.chatgpt.site/'
+          candidates = [base + 'cislunar-atlas.html', base]
+          report = {'source': base, 'recovered': False, 'attempts': []}
+          for url in candidates:
+              try:
+                  req = urllib.request.Request(url, headers={'User-Agent': 'Cislunar-Economy-v1-recovery/1.0'})
+                  with urllib.request.urlopen(req, timeout=35) as response:
+                      final_url = response.url
+                      data = response.read(20000001)
+                      status = response.status
+                  text = data.decode('utf-8')
+                  markers = sum(s.casefold() in text.casefold() for s in ['Orbit garden', 'Save atlas', 'Lyapunov', 'Lagrange', 'Equations'])
+                  valid = (status == 200 and final_url.startswith(base) and 100000 < len(data) < 20000000 and markers >= 3 and '<html' in text.lower())
+                  report['attempts'].append({'url': url, 'status': status, 'bytes': len(data), 'valid_original_candidate': valid})
+                  if valid:
+                      if re.search(r'(?:art_v2_x_[a-zA-Z0-9]{20,}|ghp_[a-zA-Z0-9]{20,}|github_pat_[a-zA-Z0-9_]{20,})', text):
+                          raise ValueError('Credential-like string found; refusing to publish.')
+                      dest = pathlib.Path('vendor/v1'); dest.mkdir(parents=True, exist_ok=True)
+                      (dest / 'original.html').write_bytes(data)
+                      report.update(recovered=True, source_url=url, sha256=hashlib.sha256(data).hexdigest(), bytes=len(data))
+                      break
+              except Exception as exc:
+                  report['attempts'].append({'url': url, 'error': type(exc).__name__ + ': ' + str(exc)[:300]})
+          pathlib.Path('v1-recovery-report.json').write_text(json.dumps(report, indent=2)+'\n')
+          print(json.dumps(report, indent=2))
+          if not report['recovered']:
+              print('Original v1 was not recovered. No replacement, authentication bypass, or recreated orbit catalog was used.')
+          PY
+      - name: Save recovery result without changing the original launch page
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add v1-recovery-report.json
+          if [ -f vendor/v1/original.html ]; then git add vendor/v1/original.html; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record original v1 recovery result; retain source bytes when validated'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
