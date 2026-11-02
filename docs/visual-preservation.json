@@ -1,0 +1,15 @@
+{
+  "test": "Paused default Map screenshot comparison between the original v1 and patched v2 in the same local Chromium session",
+  "viewport": [1365, 960],
+  "changed_pixels_total": 978,
+  "changed_pixels_bounding_box": [688, 94, 964, 136],
+  "excluded_region": {
+    "description": "Camera button bar; Wide is replaced by Mars and adjacent buttons shift slightly",
+    "left": 680,
+    "top": 90,
+    "right": 975,
+    "bottom": 140
+  },
+  "changed_pixels_outside_camera_bar": 0,
+  "limitations": "One desktop default-view screenshot comparison, not a cross-browser or all-state pixel guarantee."
+}
