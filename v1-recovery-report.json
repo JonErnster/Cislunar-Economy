@@ -1,0 +1,15 @@
+{
+  "source": "https://jon-cislunar-atlas.jmernster7.chatgpt.site/",
+  "recovered": true,
+  "attempts": [
+    {
+      "url": "https://jon-cislunar-atlas.jmernster7.chatgpt.site/cislunar-atlas.html",
+      "status": 200,
+      "bytes": 3793074,
+      "valid_original_candidate": true
+    }
+  ],
+  "source_url": "https://jon-cislunar-atlas.jmernster7.chatgpt.site/cislunar-atlas.html",
+  "sha256": "65cc0daae9f72ffc30d9ba9f6996c3c5c143be8ca15f69b3c79fab50fa711be6",
+  "bytes": 3793074
+}
