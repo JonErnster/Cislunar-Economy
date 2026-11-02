@@ -1,0 +1,33 @@
+name: Hide Gale Crater label
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/mars-extension.js'
+      - '.github/workflows/hide-gale-label.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hide Gale Crater label in standalone atlas
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old="visible:()=>active&&(!Ii()||(ct.right-ct.left)/ct.zoom<2),getPosition:()=>gale.position"
+          new="visible:()=>false,getPosition:()=>gale.position"
+          assert s.count(old)==1, "Gale label anchor missing"
+          p.write_text(s.replace(old,new,1))
+          PY
+      - name: Publish change
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Hide Gale Crater label in published atlas'
+          git pull --rebase origin main
+          git push origin HEAD:main
