@@ -1,0 +1,108 @@
+name: Build v1-preserving v2
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/**'
+      - 'tools/**'
+      - 'tests/**'
+      - '.github/workflows/build-v2.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: cislunar-v2-build
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build without replacing v1 data or styling
+        run: |
+          python tools/build_v2.py
+          node --check src/mars-extension.js
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Verify desktop, mobile, original state, and orbital invariants
+        run: python tests/check_browser.py
+      - name: Publish the verified standalone app and test evidence
+        id: commit
+        shell: bash
+        run: |
+          touch .nojekyll
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html .nojekyll docs/build-verification.json docs/browser-verification.json docs/v2-*.png
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish v2: original v1 preserved with native Mars orbital extension'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          mkdir -p _site/vendor/v1
+          cp index.html .nojekyll _site/
+          cp vendor/v1/original.html _site/vendor/v1/
+      - name: Verify a public immutable-commit preview
+        env:
+          BUILD_SHA: ${{ steps.commit.outputs.sha }}
+        run: |
+          python - <<'PY'
+          import os, urllib.request, json, pathlib
+          url='https://raw.githack.com/JonErnster/Cislunar-Economy/'+os.environ['BUILD_SHA']+'/index.html'
+          report={'build_commit':os.environ['BUILD_SHA'],'preview_url':url,'verified':False}
+          try:
+              with urllib.request.urlopen(url,timeout=40) as response:
+                  body=response.read(10000000)
+                  report.update(http_status=response.status,bytes=len(body),content_type=response.headers.get('Content-Type'))
+              report['verified']=b'MarsV2.install()' in body and b'window.ATLAS_DATA=' in body and b'data-view="mars"' in body
+          except Exception as exc:
+              report['error']=type(exc).__name__+': '+str(exc)[:300]
+          pathlib.Path('docs/publish-status.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
+          PY
+          git add docs/publish-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record verification of the public v2 preview URL'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cislunar-v2-tested
+          path: |
+            index.html
+            docs/
+          retention-days: 14
+      - name: Configure GitHub Pages when repository permissions allow
+        id: pages
+        continue-on-error: true
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.pages.outcome == 'success'
+        with:
+          path: _site
+      - name: Deploy Pages
+        if: steps.pages.outcome == 'success'
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Summarize publication
+        if: always()
+        run: |
+          echo '## Cislunar Atlas v2' >> "$GITHUB_STEP_SUMMARY"
+          echo 'This is a patch of the recovered v1, not a rebuilt cislunar model.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The original remains in vendor/v1/original.html.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'See docs/build-verification.json and docs/browser-verification.json for results.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Pages configure result: ${{ steps.pages.outcome }}' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Pages deployment URL: ${{ steps.deployment.outputs.page_url }}' >> "$GITHUB_STEP_SUMMARY"
