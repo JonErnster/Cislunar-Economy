@@ -2,7 +2,7 @@
 from pathlib import Path
 import hashlib, json, re, runpy
 ROOT = Path(__file__).resolve().parents[1]
-V2_SHA = '59bd258352723eaf8dc2746fb56b08f08350c6ce52b7b2231ea6defa4ead370b'
+V2_SHA = 'a02607d6aee57547903dd64ae39d11dfcc40654fbd55b4dd79df71f1946787fb'
 
 def main():
     if (ROOT/'tools/build_v2.py').exists():

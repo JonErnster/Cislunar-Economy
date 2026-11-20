@@ -196,7 +196,7 @@ const MarsV2 = (() => {
       '<div class="layer-row" data-mars-layer="'+layer.id+'" style="--color:'+layer.color+'">'+
       '<label title="Toggle '+layer.name+'"><input type="checkbox" checked data-mars-toggle="'+layer.id+'" aria-label="Show '+layer.name+'"></label>'+
       '<button class="layer-name" data-mars-inspect="'+layer.id+'">'+layer.name+'</button><span class="layer-number">'+(layer.orbits.length||2)+'</span></div>').join('')+
-      '<label class="mars-full-web"><input type="checkbox" id="marsMoonLabels"> Show Phobos & Deimos labels</label>'+ 
+      '<label class="mars-full-web"><input type="checkbox" id="marsMoonLabels"> Show Phobos & Deimos labels</label>'+
        '<label class="mars-full-web"><input type="checkbox" id="marsFullWeb" checked> Include the full v1 cislunar web</label>'+
       '<p class="mars-sidebar-note">The original orbit data is untouched. Mars is an additional group in the same scene.</p>';
     Z('layerList').append(details);
