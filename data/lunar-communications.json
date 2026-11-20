@@ -1,0 +1,47 @@
+{
+  "reviewed_on": "2026-11-20",
+  "records": [
+    {
+      "id": "ladee-llcd",
+      "name": "LADEE laser communications experiment",
+      "status": "mission_ended",
+      "status_as_of": "2014-04-18",
+      "status_source": "nasa-ladee-end",
+      "availability": "The spacecraft reached the lunar surface at the end of its mission. The measured rates describe the experiment.",
+      "claims": [
+        {"source": "nasa-llcd-results", "text": "NASA measured a 622 Mbps optical downlink from lunar orbit and a 20 Mbps uplink from New Mexico to LADEE."},
+        {"source": "nasa-ladee-end", "text": "NASA confirmed the planned impact of the host spacecraft in April 2014."}
+      ]
+    },
+    {
+      "id": "queqiao-2",
+      "name": "Queqiao-2",
+      "status": "mission_use_documented",
+      "status_as_of": "2024-06-02",
+      "status_source": "cnsa-change6-landing",
+      "availability": "The cited mission reports establish service for named spacecraft. Current uptime, spare capacity and terms for another customer remain unverified.",
+      "claims": [
+        {"source": "cnsa-queqiao2-tests", "text": "CNSA reported a 24-hour elliptical lunar orbit and a successful communications test with Chang’e-4 on the far side."},
+        {"source": "cnsa-change6-landing", "text": "Queqiao-2 supported the Chang’e-6 landing on the lunar far side on 2 June 2024."}
+      ]
+    },
+    {
+      "id": "lunar-pathfinder",
+      "name": "Lunar Pathfinder",
+      "status": "planned_service",
+      "status_as_of": "2026-10-12",
+      "status_source": "esa-pathfinder-tests",
+      "availability": "The published schedule depends on launch, lunar deployment and commissioning. Service entry and customer capacity remain unverified.",
+      "claims": [
+        {"source": "esa-pathfinder-tests", "text": "ESA reported final environmental testing in the United Kingdom and a planned 2027 launch. The mission design calls for a relay in an elliptical lunar orbit, with LuSEE-Night among the intended users."}
+      ]
+    }
+  ],
+  "sources": [
+    {"id": "nasa-llcd-results", "publisher": "NASA", "published_on": "2013-10-22", "title": "LLCD transmission results (release 13-309)", "url": "https://www.nasa.gov/news-release/nasa-laser-communication-system-sets-record-with-data-transmissions-to-and-from-moon/"},
+    {"id": "nasa-ladee-end", "publisher": "NASA", "published_on": "2014-04-18", "title": "LADEE mission completion (release 14-113)", "url": "https://www.nasa.gov/news-release/nasa-completes-ladee-mission-with-planned-impact-on-moons-surface/"},
+    {"id": "cnsa-queqiao2-tests", "publisher": "CNSA", "published_on": "2024-04-12", "title": "Queqiao-2 in-orbit communications tests (Chinese)", "url": "https://www.cnsa.gov.cn/n6759533/c10503942/content.html"},
+    {"id": "cnsa-change6-landing", "publisher": "CNSA", "published_on": "2024-06-02", "title": "Chang’e-6 far-side landing (Chinese)", "url": "https://www.cnsa.gov.cn/n6758823/n6758838/c10541444/content.html"},
+    {"id": "esa-pathfinder-tests", "publisher": "ESA", "published_on": "2026-10-12", "title": "Lunar Pathfinder mission and test status", "url": "https://www.esa.int/articles/about-us/directorates/human-and-robotic-exploration/moon/lunar-science-tech-demos/lunar-pathfinder"}
+  ]
+}

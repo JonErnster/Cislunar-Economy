@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lunar communications | Earth–Moon–Mars Atlas</title>
+<style>
+:root{color-scheme:light dark;--ink:#172c36;--muted:#46616c;--paper:#faf9f5;--rule:#c7d2d1;--link:#07576c}
+@media(prefers-color-scheme:dark){:root{--ink:#edf1eb;--muted:#bbc9c9;--paper:#152228;--rule:#43575c;--link:#92d7df}}
+*{box-sizing:border-box}
+body{max-width:54rem;margin:0 auto;padding:2rem clamp(1rem,5vw,4rem) 4rem;background:var(--paper);color:var(--ink);font:1rem/1.55 system-ui,sans-serif}
+nav,footer,.status{color:var(--muted);font-size:.9rem}
+nav{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--rule);padding-bottom:.85rem}
+a{color:var(--link);text-underline-offset:.14em}
+h1,h2{font-family:Georgia,serif;font-weight:500;line-height:1.15}
+h1{font-size:clamp(2.45rem,7vw,4rem);margin:2.5rem 0 1rem}
+h2{font-size:1.65rem;margin:.15rem 0}
+header p{max-width:64ch}
+article,footer{border-top:1px solid var(--rule);padding:1.35rem 0}
+article p{margin:.65rem 0}
+label{display:block;margin:1.8rem 0 1.1rem}
+select{font:inherit;margin-left:.35rem;max-width:100%}
+summary{cursor:pointer;color:var(--link);width:fit-content}
+li+li{margin-top:.35rem}
+[hidden]{display:none}
+</style>
+</head>
+<body>
+<nav aria-label="Project links"><a href="../">Earth–Moon–Mars Atlas</a><a href="../data/lunar-communications.json">Download JSON</a></nav>
+<main>
+<header>
+<h1>Lunar communications</h1>
+<p>Which capabilities have flown, and which remain planned? These three records document a direct optical link, a far-side relay and a proposed shared relay service. Each status carries the date supported by its source.</p>
+</header>
+<label id="filter-label" hidden>Filter by status
+<select id="status"><option value="">All records</option><option value="mission_ended">Mission ended</option><option value="mission_use_documented">Mission use documented</option><option value="planned_service">Planned service</option></select>
+</label>
+<div id="records"><article id="ladee-llcd" data-status="mission_ended">
+  <h2>LADEE laser communications experiment</h2>
+  <p class="status">Mission ended · <a href="https://www.nasa.gov/news-release/nasa-completes-ladee-mission-with-planned-impact-on-moons-surface/">2014-04-18</a></p>
+  <p>The spacecraft reached the lunar surface at the end of its mission. The measured rates describe the experiment.</p>
+  <details><summary>Evidence and sources</summary><ul><li>NASA measured a 622 Mbps optical downlink from lunar orbit and a 20 Mbps uplink from New Mexico to LADEE. <a href="https://www.nasa.gov/news-release/nasa-laser-communication-system-sets-record-with-data-transmissions-to-and-from-moon/" title="LLCD transmission results (release 13-309)">NASA, 2013-10-22</a></li><li>NASA confirmed the planned impact of the host spacecraft in April 2014. <a href="https://www.nasa.gov/news-release/nasa-completes-ladee-mission-with-planned-impact-on-moons-surface/" title="LADEE mission completion (release 14-113)">NASA, 2014-04-18</a></li></ul></details>
+</article>
+<article id="queqiao-2" data-status="mission_use_documented">
+  <h2>Queqiao-2</h2>
+  <p class="status">Mission use documented · <a href="https://www.cnsa.gov.cn/n6758823/n6758838/c10541444/content.html">2024-06-02</a></p>
+  <p>The cited mission reports establish service for named spacecraft. Current uptime, spare capacity and terms for another customer remain unverified.</p>
+  <details><summary>Evidence and sources</summary><ul><li>CNSA reported a 24-hour elliptical lunar orbit and a successful communications test with Chang’e-4 on the far side. <a href="https://www.cnsa.gov.cn/n6759533/c10503942/content.html" title="Queqiao-2 in-orbit communications tests (Chinese)">CNSA, 2024-04-12</a></li><li>Queqiao-2 supported the Chang’e-6 landing on the lunar far side on 2 June 2024. <a href="https://www.cnsa.gov.cn/n6758823/n6758838/c10541444/content.html" title="Chang’e-6 far-side landing (Chinese)">CNSA, 2024-06-02</a></li></ul></details>
+</article>
+<article id="lunar-pathfinder" data-status="planned_service">
+  <h2>Lunar Pathfinder</h2>
+  <p class="status">Planned service · <a href="https://www.esa.int/articles/about-us/directorates/human-and-robotic-exploration/moon/lunar-science-tech-demos/lunar-pathfinder">2026-10-12</a></p>
+  <p>The published schedule depends on launch, lunar deployment and commissioning. Service entry and customer capacity remain unverified.</p>
+  <details><summary>Evidence and sources</summary><ul><li>ESA reported final environmental testing in the United Kingdom and a planned 2027 launch. The mission design calls for a relay in an elliptical lunar orbit, with LuSEE-Night among the intended users. <a href="https://www.esa.int/articles/about-us/directorates/human-and-robotic-exploration/moon/lunar-science-tech-demos/lunar-pathfinder" title="Lunar Pathfinder mission and test status">ESA, 2026-10-12</a></li></ul></details>
+</article></div>
+</main>
+<footer>Reviewed 2026-11-20. This selected register covers publicly documented mission evidence. Customer access and capacity require separate evidence.</footer>
+<script>
+const filter = document.getElementById("status");
+document.getElementById("filter-label").hidden = false;
+function filterRecords() {
+  for (const article of document.querySelectorAll("#records article")) {
+    article.hidden = Boolean(filter.value && article.dataset.status !== filter.value);
+  }
+}
+filter.addEventListener("change", filterRecords);
+filterRecords();
+</script>
+</body>
+</html>

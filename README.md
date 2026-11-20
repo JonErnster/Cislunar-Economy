@@ -6,6 +6,12 @@
 
 Explore the orbital geometry and possible transport infrastructure of the Earth–Moon–Mars system. Rotate the scene, animate markers, choose orbital layers, and inspect the equations and tradeoffs behind the paths.
 
+## Lunar communications evidence register
+
+[Explore the three records](https://jonernster.github.io/Cislunar-Economy/infrastructure/) or [download the JSON](data/lunar-communications.json). Each record links technical claims to dated agency reports and describes the limits of the evidence for service availability.
+
+To update a record, retain its ID, cite the mission operator or responsible agency for each claim, and identify the report supporting the status date. Set `reviewed_on` to the editorial review date. Record a planned service, a dated use and an ended mission separately. Document a change of status in the Git commit so readers can recover earlier editions. Run `python tools/build_communications.py` to regenerate the companion page and `python tools/build_communications.py --check` to verify it. This step uses the Python standard library.
+
 ## V1 — Cislunar
 
 V1 maps Earth, the Moon, all five Earth–Moon Lagrange points, halo and Lyapunov families, near-rectilinear halo and distant retrograde examples, repeating Earth–Moon cyclers, and approach and departure manifolds.
