@@ -1,8 +1,8 @@
-name: Build Earth–Moon–Mars Atlas V3
+name: Verify published Atlas
 on:
   workflow_dispatch:
   push:
-    branches: [v3-earth-moon-mars]
+    branches: [verify/atlas-release-2026-11-20]
     paths:
       - 'src/interplanetary.js'
       - 'tools/generate_transfers.py'
@@ -11,7 +11,7 @@ on:
       - 'requirements-v3.txt'
       - '.github/workflows/build-v3.yml'
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: v3-build-${{ github.ref }}
   cancel-in-progress: false
@@ -35,28 +35,10 @@ jobs:
         run: |
           node --check src/interplanetary.js
           python tools/build_v3.py
+      - name: Verify published bytes and register evidence
+        run: |
+          git diff --exit-code -- index.html data/interplanetary.json docs/*verification.json
+          python tools/build_communications.py --check
+          python tests/check_communications.py
       - name: Verify original Map and V3 desktop/mobile interactions
         run: python -u tests/check_v3.py
-      - name: Commit the verified application and evidence
-        env:
-          TARGET_BRANCH: ${{ github.ref_name }}
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html data/interplanetary.json docs/v3-*.json docs/v3-*.png
-          if ! git diff --cached --quiet; then
-            git commit -m 'Publish V3 Earth–Moon–Mars Atlas and verified transfer catalogue'
-            git pull --rebase origin "$TARGET_BRANCH"
-            git push origin "HEAD:$TARGET_BRANCH"
-          fi
-          echo "Build commit: $(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
-          cat docs/v3-build-verification.json >> "$GITHUB_STEP_SUMMARY"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: earth-moon-mars-atlas-v3
-          path: |
-            index.html
-            data/interplanetary.json
-            docs/v3-*.json
-            docs/v3-*.png
-          retention-days: 14
